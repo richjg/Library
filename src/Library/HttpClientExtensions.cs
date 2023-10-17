@@ -237,14 +237,14 @@ namespace Library
         {
             return ((HttpClientFluent)httpRequestMessageFluent).DeleteFormAsync(requestUri, formDictionary, contentType);
         }
-        public static Task<IHttpResponseMessageFluentStart<T?>> IfSuccessAsync<T>(this Task<HttpResponseMessage> httpResponseMessageTask, Func<HttpResponseMessage, Task<T>> handler)
+        public static Task<IHttpResponseMessageFluentStart<T>> IfSuccessAsync<T>(this Task<HttpResponseMessage> httpResponseMessageTask, Func<HttpResponseMessage, Task<T>> handler)
         {
             IHttpResponseMessageFluentStart<T?> httpResponseMessageFluent = new HttpResponseMessageFluent<T>(httpResponseMessageTask).AddReponseMessageHandler((r) => r.IsSuccessStatusCode, async (r) =>
             {
                 return await handler(r);
             });
 
-            return Task.FromResult(httpResponseMessageFluent);
+            return Task.FromResult(httpResponseMessageFluent as IHttpResponseMessageFluentStart<T>);
         }
         public static Task<IHttpResponseMessageFluentStart<T?>> IfStatusCodeAsync<T>(this Task<HttpResponseMessage> httpResponseMessageTask, HttpStatusCode statusCode, Func<HttpResponseMessage, Task<T>> handler)
         {
