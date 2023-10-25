@@ -686,41 +686,6 @@ namespace Library
             }
         }
 
-        //public async Task<T> EvaluateResponseAsync()
-        //{
-        //    var responseMessage = await this.httpResponseMessageFluentTask;
-
-        //    var responseMessageHandler = this.responseMessageHandlers.FirstOrDefault(h => h.Predicate(responseMessage));
-        //    if (responseMessageHandler != null)
-        //    {
-        //        try
-        //        {
-        //            var task = responseMessageHandler.Handler(responseMessage);
-        //            if(task == null)
-        //            {
-        //                return default;
-        //            }
-        //            return await task;
-        //        }
-        //        catch(HttpRequestException)
-        //        {
-        //            //Thrown by ElseThrowXXX fluent
-        //            throw;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            //Thrown most likey when somethings got wrong inside a fulent call back e.g. IfSuccessAsync etc
-        //            if (responseMessage != null)
-        //            {
-        //                e.AddDataAttributes(responseMessage);
-        //            }
-        //            throw;
-        //        }
-        //    }
-
-        //    throw new ArgumentException("No ResponseMessageHandler defined").AddDataAttributes(responseMessage);
-        //}
-
         Task IHttpResponseMessageFluent.EvaluateResponseAsync()
         {
             return EvaluateResponseAsync();
